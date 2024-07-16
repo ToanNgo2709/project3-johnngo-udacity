@@ -1,0 +1,19 @@
+language: minimal
+
+services: 
+  - docker
+
+install:
+  - echo "nothing needs to be installed"
+
+before_script:
+  - echo "no tests"
+
+script:
+  - docker -v && docker-compose -v
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker-compose -f ./docker-compose-build.yaml build
+  - docker push toan158n/udagram-frontend:v1
+  - docker push toan158n/udagram-api-feed:v1
+  - docker push toan158n/udagram-api-user:v1
+  - docker push toan158n/reverseproxy:v1
