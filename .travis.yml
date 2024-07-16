@@ -1,6 +1,6 @@
 language: minimal
 
-services: 
+services:
   - docker
 
 install:
@@ -17,3 +17,10 @@ script:
   - docker push toan158n/udagram-api-feed:v1
   - docker push toan158n/udagram-api-user:v1
   - docker push toan158n/reverseproxy:v1
+
+cache:
+  directories:
+    - $HOME/.cache
+
+before_cache:
+  - docker image prune -f
