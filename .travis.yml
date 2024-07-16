@@ -13,6 +13,10 @@ script:
   - docker -v && docker-compose -v
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker-compose -f ./docker-compose-build.yaml build
+  - docker build -t toan158n/udagram-frontend:v1 udagram-frontend/
+  - docker build -t toan158n/udagram-api-feed:v1 udagram-api-feed/
+  - docker build -t toan158n/udagram-api-user:v1 udagram-api-user/
+  - docker build -t toan158n/reverseproxy:v1 udagram-reverseproxy/
   - docker push toan158n/udagram-frontend:v1
   - docker push toan158n/udagram-api-feed:v1
   - docker push toan158n/udagram-api-user:v1
