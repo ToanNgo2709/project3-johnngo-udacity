@@ -1,0 +1,30 @@
+### Build Stage
+FROM node:16 AS build-stage
+
+# Install Ionic CLI globally
+RUN npm install -g @ionic/cli
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Bundle app source
+COPY . .
+
+# Build the Ionic app
+RUN ionic build
+
+### Run Stage
+FROM nginx:alpine
+
+# Copy the built app to the nginx html directory
+COPY --from=build-stage /usr/src/app/www /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]
