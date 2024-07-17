@@ -3,6 +3,18 @@ Cloud developer project 3 - John Ngo
 
 eksctl create cluster --name my-cluster --region us-east-1 --fargate
 
+
+eksctl create cluster \
+  --name project3-john-cluster \
+  --region us-east-1 \
+  --nodegroup-name my-m5-large-nodes \
+  --node-type m5.large \
+  --nodes 2 \
+  --nodes-min 2 \
+  --nodes-max 3 \
+  --managed
+
+
 kubectl apply -f aws-secret.yaml
 kubectl apply -f env-secret.yaml
 kubectl apply -f env-configmap.yaml
@@ -27,9 +39,12 @@ kubectl expose deployment reverseproxy --type=LoadBalancer --name=publicreversep
 kubectl get services 
 kubectl get pods
 
-eksctl delete cluster --name my-cluster --region us-east-1
+eksctl delete cluster --name project3-johnngo-cluster --region us-east-1
 
 
-docker build . -t [Dockerhub-username]/udagram-frontend:v6
-docker push [Dockerhub-username]/udagram-frontend:v6
+docker build . -t toan158n/udagram-frontend:v8
+docker push toan158n/udagram-frontend:v8
+
+
+kubectl set image deployment frontend frontend=toan158n/udagram-frontend:v8
 

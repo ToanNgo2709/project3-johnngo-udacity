@@ -16,7 +16,7 @@ spec:
         api: external        
     spec:
       containers:
-      - image: toan158n/udagram-frontend:v5
+      - image: toan158n/udagram-frontend:v8
         name: frontend
         imagePullPolicy: Always          
         ports:
