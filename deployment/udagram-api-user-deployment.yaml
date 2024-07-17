@@ -15,16 +15,16 @@ spec:
         app: backend-user
     spec:
       containers:
-      - name: backend-user  # Adjusted indentation and spacing for consistency
-        image: toan158n/udagram-api-user:v1
-        imagePullPolicy: Always
+      - image: toan158n/udagram-api-feed:v1
+        name: backend-user
+        imagePullPolicy: Always  
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "1024Mi"
+            memory: "512Mi"
             cpu: "500m"
+          limits:
+            memory: "2048Mi"
+            cpu: "1000m"
         envFrom:
         - configMapRef:
             name: env-config
@@ -33,8 +33,7 @@ spec:
         volumeMounts:
         - name: aws-secret
           mountPath: "/root/.aws/"
-          readOnly: true
-      restartPolicy: Always  # Adjusted indentation for consistency
+          readOnly: true        
       volumes:
       - name: aws-secret
         secret:

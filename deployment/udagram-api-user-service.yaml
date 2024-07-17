@@ -5,6 +5,7 @@ metadata:
     app: backend-user
   name: backend-user
 spec:
+  type: ClusterIP
   ports:
   - name: "http"
     port: 8080
